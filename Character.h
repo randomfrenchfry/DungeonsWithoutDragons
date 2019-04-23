@@ -15,6 +15,10 @@ public:
   Damage attack();// calculates the characters damage, waepon + currState
   void setWeapon(Weapon);
   Weapon getWeapon();
+  void setState(State);
+  State getState();
+  void addModifier(Modifier);
+  Modifier getModifier();
 
 private:
   State currState;
