@@ -1,5 +1,5 @@
 #ifndef STATE_H
-#def STATE_H
+#define STATE_H
 #include "Damage.h"
 
 class State{
@@ -11,7 +11,7 @@ public:
   void setMaxHealth(int);
   int getMaxHealth();
   void setDamage(Damage);
-  Damage getDamage(); 
+  Damage getDamage();
 
 private:
   int baseHealth;
