@@ -1,5 +1,5 @@
 #ifndef DAMAGE_H
-#def DAMAGE_H
+#define DAMAGE_H
 #include "TypeAdv.h"
 
 class Damage{
