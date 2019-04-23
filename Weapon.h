@@ -1,5 +1,5 @@
 #ifndef WEAPON_H
-#def    WEAPON_H
+#define WEAPON_H
 #include "TypeAdv.h"
 #include "Damage.h"
 

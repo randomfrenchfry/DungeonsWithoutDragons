@@ -1,5 +1,5 @@
 #ifndef TYPEADV_H
-#def TYPEADV_H
+#define TYPEADV_H
 #include "Modifier.h"
 #include <string>
 

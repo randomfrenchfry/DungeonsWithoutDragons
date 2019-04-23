@@ -1,5 +1,5 @@
 #ifndef CHARACTER_H
-#define    CHARACTER_H
+#define CHARACTER_H
 #include "Weapon.h"
 #include "State.h"
 #include "Modifiers.h"

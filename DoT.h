@@ -1,5 +1,5 @@
 #ifndef DOT_H
-#def DOT_H
+#define DOT_H
 #include "Modifier.h"
 
 class DoT: Modifier{

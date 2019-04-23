@@ -1,5 +1,5 @@
 #ifndef BOON_H
-#def BOON_H
+#define BOON_H
 #include "Modifier.h"
 
 class Boon : Modifier{
