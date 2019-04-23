@@ -6,4 +6,8 @@ class Boon : Modifier{
 
 };
 
+void Boon::apply(State& state){
+  state.heal(this->getEffect());
+}
+
 #endif

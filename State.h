@@ -10,8 +10,11 @@ public:
   int getBaseHealth();
   void setMaxHealth(int);
   int getMaxHealth();
+  void heal(int);
+  void hurt(int);
   void setDamage(Damage);
   Damage getDamage();
+  void upkeep(); // apply healthMod to base Health    
 
 private:
   int baseHealth;
