@@ -1,5 +1,5 @@
 #ifndef CHARACTER_H
-#def    CHARACTER_H
+#define    CHARACTER_H
 #include "Weapon.h"
 #include "State.h"
 #include "Modifiers.h"
@@ -13,6 +13,8 @@ public:
   void heal(int);
   void upkeep();//applies all modifiers and calls their upkeeps, then removes expired modifiers
   Damage attack();// calculates the characters damage, waepon + currState
+  void setWeapon(Weapon);
+  Weapon getWeapon();
 
 private:
   State currState;
