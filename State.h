@@ -6,6 +6,13 @@ class State{
 public:
   State();
   State(int, int, Damage); // base health, maxhealth, Damage
+  void setBaseHealth(int);
+  int getBaseHealth();
+  void setMaxHealth(int);
+  int getMaxHealth();
+  void setDamage(Damage);
+  Damage getDamage(); 
+
 private:
   int baseHealth;
   int healthMod;
