@@ -8,8 +8,7 @@ public:
   Damage(int, TypeAdv*);
   int getDamage();
   void setDamage(int);
-  TypeAdv& getAdvanta
-  ges();
+  TypeAdv& getAdvantages();
   void addAdvantage(TypeAdv);
   bool removeAdvantage(TypeAdv);
   Damage operator+(Damage);

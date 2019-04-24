@@ -13,4 +13,8 @@ public:
 
 };
 
+void Modifier::apply(State& state){
+  state.strengthen(getEffect());
+}
+
 #endif

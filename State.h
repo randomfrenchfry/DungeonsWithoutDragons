@@ -12,15 +12,18 @@ public:
   int getMaxHealth();
   void heal(int);
   void hurt(int);
+  void weaken(int);
+  void strengthen(int);
   void setDamage(Damage);
   Damage getDamage();
-  void upkeep(); // apply healthMod to base Health    
+  void upkeep(); // apply healthMod to base Health, dont exceed
 
 private:
   int baseHealth;
   int healthMod;
   int maxHealth;
   Damage damage;
+  int damageMod;
 };
 
 #endif
