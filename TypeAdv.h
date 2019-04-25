@@ -13,4 +13,8 @@ public:
 
 };
 
+void TypeAdv::apply(State& state){
+  state.strengthen(getEffect());
+}
+
 #endif
