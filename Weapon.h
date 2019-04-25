@@ -21,6 +21,7 @@ public:
 
 Weapon::Weapon(){
   damage = 0;
+  typeadvantage = NULL;
 }
 
 Weapon::Weapon(int dam, TypeAdv weaponType){
