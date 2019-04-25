@@ -7,18 +7,18 @@
 class Character{
 
 public:
-  Character(); //done
-  Character(int, int, Damage); //Health, maxHealth, Damage //done
-  void takeDamage(Damage);//done
-  void heal(int);//done
-  void upkeep();//applies all modifiers and calls their upkeeps, then removes expired modifiers
+  Character();
+  Character(int, int, Damage); //Health, maxHealth, Damage
+  void takeDamage(Damage);
+  void heal(int);
+  void upkeep();//applies all modifiers and calls their upkeeps, then removes expired modifiers //finish
   Damage attack();// calculates the characters damage, waepon + currState
-  Weapon getWeapon(); //done
-  State getState();  //done
-  void setWeapon(Weapon); //done
-  void setState(State);//done
-  void addModifier(Modifier);
-  Modifier getModifier();
+  Weapon getWeapon();
+  State getState();
+  void setWeapon(Weapon);
+  void setState(State);
+  void addModifier(Modifier); //finish
+  Modifier getModifier(); //finish
 
 private:
   State currState;
@@ -40,10 +40,12 @@ void Character::heal(int healAmount){
 }
 
 void Character::takeDamage(Damage dam){
-  
   currState.hurt(dam.getDamage());
 }
-
+Damage Character::attack(){
+  Damage total_damage = weapon.attack() + currState.getDamage();
+  return total_damage;
+}
 
 void Character::setWeapon(Weapon other){
   weapon = other;
@@ -56,6 +58,17 @@ Weapon Character::getWeapon(){
 }
 State Character::getState(){
   return currState;
+}
+void Character::addModifier(Modifier other){
+  //finish
+}
+
+void Character::getModifier(){
+  //finish
+}
+
+void Character::upkeep(){
+  //finish
 }
 
 #endif
