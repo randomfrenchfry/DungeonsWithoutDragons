@@ -6,7 +6,7 @@ class Curse : Modifier{
 
 };
 
-void Modifier::apply(State& state){
+void Curse::apply(State& state){
   state.weaken(fetEffect());
 }
 

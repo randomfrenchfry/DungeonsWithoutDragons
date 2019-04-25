@@ -13,7 +13,7 @@ public:
 
 };
 
-void Modifier::apply(State& state){
+void TypeAdv::apply(State& state){
   state.strengthen(getEffect());
 }
 
