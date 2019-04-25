@@ -23,7 +23,7 @@ public:
 private:
   State currState;
   Weapon weapon;
-  Modifier* modifiers;
+  Modifier* modifiers;//TypeAdv in here should have effect = 0 when listin a characters type
 };
 
 Character::Character(){
@@ -37,6 +37,7 @@ Character::Character(int baseHealth, int maxHealth, Damage dam, Weapon weap){
   State tempState(baseHealth, maxHealth, dam);
   setState(tempState);
   weapon = weap;
+  modifiers = nulptr;
 }
 void Character::heal(int healAmount){
   currState.heal(healAmount);
@@ -46,10 +47,15 @@ void Character::takeDamage(Damage dam){
   int tmpDam = dam.getDamage();
   TypeAdv* arr = dam.getTypeAdv();
   //check for typeAdvantages
+  int damMod = 0;
   for(int i=0;i<arr.length(); i++){
     for(int j=0; j<modifiers.length(); j++){
-      if(){//check if modifiers[j] is a TypeAdv and if it is the same type as arr[i]
-
+      string className = typeid(modifiers[j]).name();
+      if(className == "TypeAdv"){//check if modifiers[j] is a TypeAdv and if it is the same type as arr[i]
+        if(arr[i].getType() == modifiers[j].getType()){
+          damMod += arr[i].getEffect();
+          damMod += modifiers[j].getEffect();
+        }
       }
     }
   }
@@ -73,7 +79,19 @@ State Character::getState(){
   return currState;
 }
 void Character::addModifier(Modifier other){
-  //finish
+  if(modifiers == nullptr){
+    modifiers = new Modifiers[1];
+    modifiers[0] = other;
+  }else{
+    Modifier* tmp = new Modifier[modifiers.length()+1];
+    for(int i=0; i<tmp.length()-1){
+      tmp[i] = modifiers[i];
+    }
+    tmp[modifiers.length()] = other;
+    delete[] modifiers;
+    modifiers = tmp;
+    delete tmp;
+  }
 }
 
 void Character::getModifier(){
