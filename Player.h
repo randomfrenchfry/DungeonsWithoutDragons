@@ -20,6 +20,18 @@ public:
 
 };
 
+Player::Player() : Character(){
+  experience = 0;
+  level = 0;
+  hasKey = false;
+}
+
+Player::Player(int baseHealth, int maxHealth, Damage dam, Weapon weap) : Character(baseHealth, maxHealth, dam, weap){
+  experience = 0;
+  level = 0;
+  hasKey = false;
+}
+
 void Player::addExperience(int xp){
   experience += xp;
 }
