@@ -21,7 +21,7 @@ public:
   Modifier getModifier(); //finish
 
 private:
-  State currState;
+  State currState;// all clas advantages should be added to state Damage object
   Weapon weapon;
   Modifier* modifiers;//TypeAdv in here should have effect = 0 when listin a characters type
 };
@@ -63,6 +63,11 @@ void Character::takeDamage(Damage dam){
 }
 Damage Character::attack(){
   Damage total_damage = weapon.attack() + currState.getDamage();
+  for(int i=0; i<modifiers.length();i++){
+    if(typeid(modifiers[i]).name() == "TypeAdv"){
+      total_Damage.addAdvantage(modifiers[i]);
+    }
+  }
   return total_damage;
 }
 
@@ -90,7 +95,6 @@ void Character::addModifier(Modifier other){
     tmp[modifiers.length()] = other;
     delete[] modifiers;
     modifiers = tmp;
-    delete tmp;
   }
 }
 
@@ -99,7 +103,14 @@ void Character::getModifier(){
 }
 
 void Character::upkeep(){
-  //finish
+  for(int i=0; i<modifiers.length();i++){
+    if(typeid(modifiers[i]).name() == "Boon" || typeid(modifiers[i]).name() == "DoT"){
+      modifiers[i].apply(&state);
+      if(modifiers[i].upkeep()){
+        modifiers[i] = NULL;
+      }
+    }
+  }
 }
 
 #endif
