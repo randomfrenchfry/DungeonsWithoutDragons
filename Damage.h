@@ -27,7 +27,7 @@ Damage::Damage(){
 }
 Damage::Damage(int dam, TypeAdv* typeAdvantage){
   damage = dam;
-  typeAdvantages = typeAdvantage;
+  *typeAdvantages = *typeAdvantage; // NEEDS TO BE A DEEP COPY
 }
 
 int Damage::getDamage(){
@@ -42,10 +42,25 @@ TypeAdv& Damage::getAdvantages(){
 }
 
 void Damage::addAdvantage(TypeAdv typeadvantage){
-
+  if(typeAdvantages == nullptr){
+    typeAdvantages = new Modifiers[1];
+    typeAdvantages[0] = typeadvantage;
+  }else{
+    Modifier* tmp = new Modifier[typeAdvantages.length()+1];
+    for(int i=0; i<tmp.length()-1){
+      tmp[i] = typeAdvantages[i];
+    }
+    tmp[typeAdvantages.length()] = typeadvantage;
+    delete[] typeAdvantages;
+    typeAdvantages = tmp;
+  }
 }
-bool Damage::removeAdvantage(TypeAdv typeadvantage){
 
+bool Damage::removeAdvantage(TypeAdv typeadv){
+  for(int i=0; i<typeAdvantages.length();i++){
+    if(typeadv.getType() == typeAdvantages[i].getType()){
+      typeAdvantages[i] = NULL;
+  }
 }
 Damage Damage::operator+(Damage dam){
   int numOfAdvantages = typeAdvantages.length() + dam.getAdvantages.length();
