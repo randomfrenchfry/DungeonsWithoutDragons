@@ -99,7 +99,8 @@ void Character::addModifier(Modifier other){
 }
 
 void Character::getModifier(){
-  //finish
+  //finish -nah
+  cout << "DEPRECIATED";
 }
 
 void Character::upkeep(){
