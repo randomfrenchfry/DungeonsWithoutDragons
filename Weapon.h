@@ -3,7 +3,8 @@
 #include "TypeAdv.h"
 #include "Damage.h"
 
-class Weapon{
+class Weausing namespace std;
+pon{
 private:
   int damage;
   TypeAdv typeadvantage;

@@ -1,6 +1,8 @@
 #ifndef MODIFIER_H
 #define MODIFIER_H
-#include "State.h"
+#include <iostream>
+#include <string>
+using namespace std;
 
 class Modifier{
 public:
@@ -11,7 +13,8 @@ public:
   int getDuration();
   void setDuration(int);
   bool upkeep(); //called by the upkeep func of other classes, decrements duration by one; returns true when mod should be deleted
-  virtual void apply(State&) = 0;
+  virtual void apply(int&);
+  virtual string getType();
 
 private:
   int effect;
@@ -51,6 +54,14 @@ bool Modifier::upkeep(){
     return true;
   }
   return false;
+}
+
+void Modifier::apply(int& state){
+  cout << "FUCK YOU";
+}
+
+string Modifier::getType(){
+  cout << "And Fuck ME TOO";
 }
 
 #endif

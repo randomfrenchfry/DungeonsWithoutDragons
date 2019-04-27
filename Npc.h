@@ -1,6 +1,8 @@
 #ifndef NPC_H
 #define NPC_H
 #include "Character.h"
+#include <string>
+using namespace std;
 
 class Npc : Character{
 public:

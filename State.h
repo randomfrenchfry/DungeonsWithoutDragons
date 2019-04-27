@@ -1,6 +1,7 @@
 #ifndef STATE_H
 #define STATE_H
 #include "Damage.h"
+using namespace std;
 
 class State{
 public:

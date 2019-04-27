@@ -1,13 +1,15 @@
 #ifndef DOT_H
 #define DOT_H
 #include "Modifier.h"
+using namespace std;
 
 class DoT: Modifier{
-
+public:
+  void apply(int&);
 };
 
-void Dot::apply(State& state){
-  state.hurt(this->getEffect());
+void DoT::apply(int& state){
+  state -= getEffect();
 }
 
 #endif

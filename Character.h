@@ -2,7 +2,9 @@
 #define CHARACTER_H
 #include "Weapon.h"
 #include "State.h"
-#include "Modifiers.h"
+#include "Modifier.h"
+using namespace std;
+
 
 class Character{
 

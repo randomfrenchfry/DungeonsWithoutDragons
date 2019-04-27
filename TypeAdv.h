@@ -1,7 +1,9 @@
 #ifndef TYPEADV_H
 #define TYPEADV_H
 #include "Modifier.h"
+#include "State.h"
 #include <string>
+using namespace std;
 
 class TypeAdv : Modifier{
 private:
@@ -10,11 +12,12 @@ private:
 public:
   void setType(string);
   string getType();
+  void apply(int&);
 
 };
 
-void TypeAdv::apply(State& state){
-  state.strengthen(getEffect());
+void TypeAdv::apply(int& state){
+  state += getEffect();
 }
 
 #endif

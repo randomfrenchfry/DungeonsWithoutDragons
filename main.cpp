@@ -1,5 +1,5 @@
 #include "Boon.h"
-#include "Dot.h"
+#include "DoT.h"
 #include "Curse.h"
 #include "TypeAdv.h"
 #include "Character.h"
@@ -9,10 +9,11 @@
 #include "Damage.h"
 #include "Weapon.h"
 #include "State.h"
-#include <stdio>
+#include <iostream>
+using namespace std;
 
 
 int main(){
-  
+
   return 0;
 }
