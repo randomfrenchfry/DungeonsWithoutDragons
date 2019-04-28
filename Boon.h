@@ -4,14 +4,24 @@
 using namespace std;
 
 
-class Boon : Modifier{
+class Boon : public Modifier{
 public:
-  void apply(int&);
+  Boon();
+  Boon(int, int);
+  void apply(int*);
 
 };
 
-void Boon::apply(int& state){
-  state += getEffect();
+Boon::Boon() : Modifier(){
+
+}
+
+Boon::Boon(int eff, int dur) : Modifier(eff, dur){
+
+}
+
+void Boon::apply(int* state){
+  *state += getEffect();
 }
 
 #endif

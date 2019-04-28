@@ -13,7 +13,7 @@ public:
   int getDuration();
   void setDuration(int);
   bool upkeep(); //called by the upkeep func of other classes, decrements duration by one; returns true when mod should be deleted
-  virtual void apply(int&);
+  virtual void apply(int*);
   virtual string getType();
 
 private:
@@ -56,7 +56,7 @@ bool Modifier::upkeep(){
   return false;
 }
 
-void Modifier::apply(int& state){
+void Modifier::apply(int* state){
   cout << "FUCK YOU";
 }
 

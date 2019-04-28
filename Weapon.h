@@ -2,9 +2,9 @@
 #define WEAPON_H
 #include "TypeAdv.h"
 #include "Damage.h"
+using namespace std;
 
-class Weausing namespace std;
-pon{
+class Weapon{
 private:
   int damage;
   TypeAdv typeadvantage;
@@ -22,7 +22,8 @@ public:
 
 Weapon::Weapon(){
   damage = 0;
-  typeadvantage = NULL;
+  TypeAdv tmp;
+  typeadvantage = tmp;
 }
 
 Weapon::Weapon(int dam, TypeAdv weaponType){
@@ -47,7 +48,8 @@ TypeAdv Weapon::getTypeAdv(){
 }
 
 Damage Weapon::attack(){
-  Damage tempDamage(damage, typeadvantage);
+  Damage tempDamage(damage);
+  tempDamage.addAdvantage(typeadvantage);
   return tempDamage;
 }
 

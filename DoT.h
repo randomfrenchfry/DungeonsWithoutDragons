@@ -3,13 +3,23 @@
 #include "Modifier.h"
 using namespace std;
 
-class DoT: Modifier{
+class DoT: public Modifier{
 public:
-  void apply(int&);
+  DoT();
+  DoT(int, int);
+  void apply(int*);
 };
 
-void DoT::apply(int& state){
-  state -= getEffect();
+DoT::DoT() : Modifier(){
+
+}
+
+DoT::DoT(int eff, int dur) : Modifier(eff, dur){
+
+}
+
+void DoT::apply(int* state){
+  *state -= getEffect();
 }
 
 #endif

@@ -4,11 +4,11 @@
 #include <string>
 using namespace std;
 
-class Npc : Character{
+class Npc : public Character{
 public:
   Npc();
-  Npc();
-  void setName();
+  Npc(int, int, Damage, Weapon, string);
+  void setName(string);
   string getName();
 
 private:

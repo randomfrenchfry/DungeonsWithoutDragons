@@ -11,6 +11,7 @@ public:
   int getBaseHealth();
   void setMaxHealth(int);
   int getMaxHealth();
+  int* getHealthMod();
   void heal(int);
   void hurt(int);
   void weaken(int);
@@ -31,7 +32,7 @@ State::State(){
   baseHealth = 0;
   healthMod = 0;
   maxHealth = 0;
-  Damage tmp();
+  Damage tmp;
   damage = tmp;
   damageMod = 0;
 }
@@ -42,6 +43,10 @@ State::State(int bH, int mH, Damage dam){
   maxHealth = mH;
   damage = dam;
   damageMod = 0;
+}
+
+int* State::getHealthMod(){
+  return &healthMod;
 }
 
 void State::setBaseHealth(int bH){
@@ -71,7 +76,7 @@ void State::hurt(int hurt){
   baseHealth -= hurt;
 }
 
-void State::Weaken(int we){
+void State::weaken(int we){
   damageMod -= we;
 }
 
@@ -83,7 +88,11 @@ void State::setDamage(Damage dam){
   damage = dam;
 }
 
-void upkeep(){
+Damage State::getDamage(){
+  return damage;
+}
+
+void State::upkeep(){
   baseHealth += healthMod;
   if(baseHealth > maxHealth){
     baseHealth = maxHealth;

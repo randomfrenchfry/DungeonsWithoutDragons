@@ -5,7 +5,7 @@
 #include <ctime>
 using namespace std;
 
-class Player : Character{
+class Player : public Character{
 private:
   int experience;
   int level;
@@ -14,6 +14,7 @@ private:
 
 public:
   Player();
+  Player(int, int, Damage, Weapon);
   void addExperience(int);
   int getExperience();
   void upkeep(); //same shit as parent but calls levelup
@@ -41,7 +42,8 @@ int Player::getExperience(){
   return experience;
 }
 
-void Player::upkeep() : upkeep(){
+void Player::upkeep(){
+  Character::upkeep();
   if(experience >= level * 10){
     level++;
     levelup();

@@ -5,19 +5,33 @@
 #include <string>
 using namespace std;
 
-class TypeAdv : Modifier{
+class TypeAdv : public Modifier{
 private:
   string type;
 
 public:
+  TypeAdv();
+  TypeAdv(int, int, string); // effect duration name
   void setType(string);
   string getType();
-  void apply(int&);
+  void apply(int*);
 
 };
 
-void TypeAdv::apply(int& state){
-  state += getEffect();
+TypeAdv::TypeAdv() : Modifier(){
+  type = "NOTHING";
+}
+
+TypeAdv::TypeAdv(int eff, int dur, string nam) : Modifier(eff, dur){
+  type = nam;
+}
+
+void TypeAdv::apply(int* state){
+  *state += getEffect();
+}
+
+string TypeAdv::getType(){
+  return type;
 }
 
 #endif

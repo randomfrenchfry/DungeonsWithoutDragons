@@ -6,15 +6,17 @@ using namespace std;
 class Damage{
 public:
   Damage();
-  Damage(int, Modifier*);
+  Damage(int);
+  Damage(int, Modifier*, int);
   int getDamage();
   void setDamage(int);
-  Modifier& getAdvantages();
+  Modifier* getAdvantages();
   void addAdvantage(Modifier);
   bool removeAdvantage(Modifier);
+  int getNumMods();
   Damage operator+(Damage);
   Damage operator+(int);
-  Damage operator+(Modifier*);
+  //Damage operator+(Modifier*);
 
 private:
   int damage;
@@ -28,10 +30,17 @@ Damage::Damage(){
   typeAdvantages = nullptr;
   numMods = 0;
 }
-Damage::Damage(int dam, Modifier* typeAdvantage){
+
+Damage::Damage(int dam){
+  damage = dam;
+  typeAdvantages = nullptr;
+  numMods = 0;
+}
+
+Damage::Damage(int dam, Modifier* typeAdvantage, int num){
   damage = dam;
   *typeAdvantages = *typeAdvantage; // NEEDS TO BE A DEEP COPY
-  numMods = 0;
+  numMods = num;
 }
 
 int Damage::getDamage(){
@@ -41,8 +50,12 @@ void Damage::setDamage(int dam){
   damage = dam;
 }
 
-Modifier& Damage::getAdvantages(){
-  return *typeAdvantages;
+Modifier* Damage::getAdvantages(){
+  return typeAdvantages;
+}
+
+int Damage::getNumMods(){
+  return numMods;
 }
 
 void Damage::addAdvantage(Modifier typeadvantage){
@@ -50,11 +63,11 @@ void Damage::addAdvantage(Modifier typeadvantage){
     typeAdvantages = new Modifier[1];
     typeAdvantages[0] = typeadvantage;
   }else{
-    Modifier* tmp = new Modifier[typeAdvantages->length()+1];
-    for(int i=0; i<tmp->length()-1; i++){
+    Modifier* tmp = new Modifier[numMods+1];
+    for(int i=0; i<numMods-1; i++){
       tmp[i] = typeAdvantages[i];
     }
-    tmp[typeAdvantages->length()] = typeadvantage;
+    tmp[numMods] = typeadvantage;
     delete[] typeAdvantages;
     typeAdvantages = tmp;
   }
@@ -62,43 +75,56 @@ void Damage::addAdvantage(Modifier typeadvantage){
 }
 
 bool Damage::removeAdvantage(Modifier typeadv){
-  for(int i=0; i<typeAdvantages->length();i++){
+  int pos = -1;
+  for(int i=0; i<numMods;i++){
     if(typeadv.getType() == typeAdvantages[i].getType()){
-      typeAdvantages[i] = null;
-      return true;
+      pos = i;
+    }
   }
-  return false;
+  if(pos == -1){
+    return false;
+  }
+  Modifier* tmp = new Modifier[numMods-1];
+  int cnt = 0;
+  for(int i=0; i<numMods;i++){
+    if(pos != i){
+      tmp[cnt] = typeAdvantages[i];
+      cnt++;
+    }
+  }
+  typeAdvantages = tmp;
+  return true;
 }
 Damage Damage::operator+(Damage dam){
-  int numOfAdvantages = typeAdvantages.length() + dam.getAdvantages.length();
-  Modifier* newTypeAdvantages[numOfAdvantages];
-  for(int i = 0; i < typeAdvantages.length(); i++){
+  int numOfAdvantages = numMods + dam.getNumMods();
+  Modifier newTypeAdvantages[numOfAdvantages];
+  for(int i = 0; i < numMods; i++){
     newTypeAdvantages[i] = typeAdvantages[i];
   }
-  for(int i = 0; i < dam.getAdvantages.length(); i++){
-    newTypeAdvantages[typeAdvantages.length() + i] = dam.getAdvantages[i];
+  for(int i = 0; i < dam.getNumMods(); i++){
+    newTypeAdvantages[numMods + i] = dam.getAdvantages()[i];
   }
-  Damage tempDamage(damage + dam.getDamage, newTypeAdvantages);
+  Damage tempDamage(damage + dam.getDamage(), newTypeAdvantages, numOfAdvantages);
   return tempDamage;
 }
 
 Damage Damage::operator+(int dam){
-  Damage tempDamage(damage + dam, typeAdvantages);
+  Damage tempDamage(damage + dam, typeAdvantages, numMods);
   return tempDamage;
 }
-
-Damage Damage::operator+(Modifier* advantages){
-  int numOfAdvantages = typeAdvantages.length() + advantages.length();
+/*
+Damage Damage::operator+(Modifier* advantages, int num){
+  int numOfAdvantages = numMods + num;
   Modifier* newTypeAdvantages[numOfAdvantages];
-  for(int i = 0; i < typeAdvantages.length(); i++){
+  for(int i = 0; i < numMods; i++){
     newTypeAdvantages[i] = typeAdvantages[i];
   }
-  for(int i = 0; i < advantages.length(); i++){
-    newTypeAdvantages[typeAdvantages.length() + i] = advantages[i];
+  for(int i = 0; i < num; i++){
+    newTypeAdvantages[numMods + i] = advantages[i];
   }
-  Damage tempDamage(damage, newTypeAdvantages);
+  Damage tempDamage(damage, newTypeAdvantages, numOfAdvantages);
   return tempDamage;
 }
-
+*/
 
 #endif

@@ -3,14 +3,24 @@
 #include "Modifier.h"
 using namespace std;
 
-class Curse : Modifier{
+class Curse : public Modifier{
 public:
-  void apply(int&);
+  Curse();
+  Curse(int , int);
+  void apply(int*);
 
 };
 
-void Curse::apply(int& state){
-  state -= getEffect();
+Curse::Curse() : Modifier(){
+
+}
+
+Curse::Curse(int eff, int dur) : Modifier(eff, dur){
+
+}
+
+void Curse::apply(int* state){
+  *state -= getEffect();
 }
 
 #endif

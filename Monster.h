@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-class Monster : Character{
+class Monster : public Character{
 public:
   Monster();
   Monster(int, int, Damage, Weapon, string);
@@ -15,7 +15,7 @@ private:
 
 };
 
-Monster::Mosnter() : Character(){
+Monster::Monster() : Character(){
   name = "Carl";
 }
 
