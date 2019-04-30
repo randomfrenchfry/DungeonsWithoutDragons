@@ -129,26 +129,3 @@ void Character::upkeep(){
 }
 
 #endif
-
-
-
-/*
-
-
-The Character class is the class for any character in the game.
-
-every character has a state
-a character may have a weapon
-a character has a list of modifiers that is empty if the character has none
-the character's state, weapon, and modifiers list may be retrieved/modifed with mutators/accessors
-
-a character has a Damage attack() which is the total damage it can deal to an enemy
-(the weapon's damage + character's individual damage)
-
-a character has an upkeep function that // HELP
-
-a character can heal using the heal function
-
-a character's takeDamage function changes the characters state depending on the input damage parameter
-
-*/
