@@ -17,7 +17,7 @@ private:
 };
 
 Npc::Npc() : Character(){
-  name = "Carlos";
+  name = "Gustav";
 }
 
 Npc::Npc(int bH, int mH, Damage dam, Weapon we, string nam) : Character(bH, mH, dam, we){
