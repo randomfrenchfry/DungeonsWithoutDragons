@@ -6,7 +6,7 @@ using namespace std;
 class Monster : public Character{
 public:
   Monster();
-  Monster(int, int, Damage, Weapon, string);
+  Monster(int, int, Damage, Weapon, string);//health, max, dam, weap, name
   void setName(string);
   string getName();
 

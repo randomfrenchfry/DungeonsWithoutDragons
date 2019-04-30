@@ -16,7 +16,7 @@ private:
 public:
   Player();
   string getName();
-  Player(int, int, Damage, Weapon, string);
+  Player(int, int, Damage, Weapon, string);//health, max, dam, waepon, name 
   void addExperience(int);
   int getExperience();
   void upkeep(); //same shit as parent but calls levelup
