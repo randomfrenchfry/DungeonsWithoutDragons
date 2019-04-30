@@ -16,10 +16,11 @@ private:
 public:
   Player();
   string getName();
-  Player(int, int, Damage, Weapon, string);//health, max, dam, waepon, name 
+  Player(int, int, Damage, Weapon, string);//health, max, dam, waepon, name
   void addExperience(int);
   int getExperience();
   void upkeep(); //same shit as parent but calls levelup
+  void print();
 
 
 };
@@ -31,7 +32,7 @@ Player::Player() : Character(){
   name = "Stevie";
 }
 
-Player::Player(int baseHealth, int maxHealth, Damage dam, Weapon weap) : Character(baseHealth, maxHealth, dam, weap, string playerName){
+Player::Player(int baseHealth, int maxHealth, Damage dam, Weapon weap, string playerName) : Character(baseHealth, maxHealth, dam, weap){
   experience = 0;
   level = 0;
   hasKey = false;
@@ -64,6 +65,12 @@ void Player::levelup(){
   if(tmp == 1){
     hasKey = true;
   }
+}
+
+void Player::print(){
+  cout << name << ":" << endl;
+  cout << "Level: " << level << " Exp: " << experience << endl;
+  Character::print();
 }
 
 #endif

@@ -17,6 +17,7 @@ public:
   void setTypeAdv(TypeAdv);
   TypeAdv getTypeAdv();
   Damage attack();
+  void print();
 
 };
 
@@ -51,6 +52,10 @@ Damage Weapon::attack(){
   Damage tempDamage(damage);
   tempDamage.addAdvantage(typeadvantage);
   return tempDamage;
+}
+
+void Weapon::print(){
+  cout << "Weapon power: " << damage << endl;
 }
 
 #endif

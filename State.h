@@ -19,6 +19,7 @@ public:
   void setDamage(Damage);
   Damage getDamage();
   void upkeep(); // apply healthMod to base Health, dont exceed
+  void print();
 
 private:
   int baseHealth;
@@ -97,6 +98,11 @@ void State::upkeep(){
   if(baseHealth > maxHealth){
     baseHealth = maxHealth;
   }
+}
+
+void State::print(){
+  cout << "Health: " << baseHealth << " Max Health: " << maxHealth << endl;
+  cout << "Base Damage : " << damage.getDamage() << endl;
 }
 
 #endif

@@ -9,6 +9,7 @@ public:
   Monster(int, int, Damage, Weapon, string);//health, max, dam, weap, name
   void setName(string);
   string getName();
+  void print();
 
 private:
   string name;
@@ -29,6 +30,11 @@ void Monster::setName(string nam){
 
 string Monster::getName(){
   return name;
+}
+
+void Monster::print(){
+  cout << name << ": " << endl;
+  Character::print();
 }
 
 #endif

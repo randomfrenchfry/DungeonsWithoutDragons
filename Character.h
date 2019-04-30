@@ -22,6 +22,7 @@ public:
   void setState(State);
   void addModifier(Modifier); //finish
   Modifier getModifier(); //finish
+  void print();
 
 private:
   State currState;// all clas advantages should be added to state Damage object
@@ -126,6 +127,11 @@ void Character::upkeep(){
       }
     }
   }
+}
+
+void Character::print(){
+  currState.print();
+  weapon.print();
 }
 
 #endif

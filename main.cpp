@@ -41,45 +41,51 @@ int main(){
   Damage tmpD(0);
   TypeAdv tmpTA(0, -1, "Rusty");
   Weapon tmpW(20, tmpTA);
-  Player player(100, 100, tmpD, tmpTA, playName);
+  Player player(100, 100, tmpD, tmpW, playName);
   Npc* allies = new Npc[0];
   int numAllies = 0;
   srand(time(nullptr));
   int opt;
 
   //MAIN LOOP
-  while(true){
+  try{
+    while(true){
 
-    opt = menu();
+      opt = menu();
 
-    if(opt == 1){//Look around the room
-      int odds = 1 + rand() % 5;
-      if(odds >= 1 && odds <= 2 ){//item found
-        cout << "You find a helpfull item" << endl;
-      }else if(odds >= 3 && odds <= 4){//monster found
-        cout << "A Monster jumps out from behind something. FIGHT!" << endl;
-        Damage tmpD(1);
-        TypeAdv tmpTA(0, -1, "Goblin");
-        Weapon tmpW(10, tmpTA);
-        Monster tmpMon(40, 40, tmpD, tmpTA, playName);
-        //FUGGin fight
-        Fight(player, allies, numAllies ,tmpMon);
+      if(opt == 1){//Look around the room
+        int odds = 1 + rand() % 5;
+        if(odds >= 1 && odds <= 2 ){//item found
+          cout << "You find a helpfull item" << endl;
+        }else if(odds >= 3 && odds <= 4){//monster found
+          cout << "A Monster jumps out from behind something. FIGHT!" << endl;
+          Damage tmpD(1);
+          TypeAdv tmpTA(0, -1, "Goblin");
+          Weapon tmpW(10, tmpTA);
+          Monster tmpMon(40, 40, tmpD, tmpW, playName);
+          //FUGGin fight
+          Fight(player, allies, numAllies ,tmpMon);
 
-      }else{//nothing found
-        cout << "You find nothing" << endl;
+        }else{//nothing found
+          cout << "You find nothing" << endl;
+        }
+      }else if(opt == 2){//go to next room
+        //gain ally or
+        //fight Monster or
+        //nothinng happends
+
+      }else if(opt == 3){//print stats
+        //call print functions of player and all allies
+      }else{
+        cout << "Wrong input, try again" << endl;
       }
-
-    }else if(opt == 2){//go to next room
-
-    }else if(opt == 3){//print stats
-
-    }else{
-      cout << "Wrong input, try again" << endl;
     }
+  }catch( ... ){
 
-  }
+  cout << "YOU DIED" << endl;
+  return 1;
 
-
+  }//end catch
 
   return 0;
-}
+}//end Main

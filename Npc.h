@@ -10,6 +10,7 @@ public:
   Npc(int, int, Damage, Weapon, string);
   void setName(string);
   string getName();
+  void print();
 
 private:
   string name;
@@ -30,6 +31,11 @@ void Npc::setName(string nam){
 
 string Npc::getName(){
   return name;
+}
+
+void Npc::print(){
+  cout << name << ": " << endl;
+  Character::print();
 }
 
 #endif
