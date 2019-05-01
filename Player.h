@@ -16,6 +16,7 @@ private:
 public:
   Player();
   string getName();
+  void setName(string);
   Player(int, int, Damage, Weapon, string);//health, max, dam, waepon, name
   void addExperience(int);
   int getExperience();
@@ -24,6 +25,10 @@ public:
 
 
 };
+
+void Player::setName(string nam){
+  name = nam;
+}
 
 Player::Player() : Character(){
   experience = 0;
@@ -53,16 +58,24 @@ int Player::getExperience(){
 
 void Player::upkeep(){
   Character::upkeep();
-  if(experience >= level * 10){
+  if(getState().getBaseHealth()<=0){
+    throw runtime_error("You Have Died!");
+  }
+  while(experience >= 5 + level * 10){
     level++;
     levelup();
+  }
+  if(hasKey){
+    throw runtime_error("You Found The Key! You escape!");
   }
 }
 
 void Player::levelup(){
+  //cout << "Leveling up" <<endl;
   srand(time(nullptr));
   int tmp = 1 + rand() % 5;
   if(tmp == 1){
+    //cout << tmp << "HAVEKEY";
     hasKey = true;
   }
 }

@@ -39,7 +39,7 @@ Damage::Damage(int dam){
 
 Damage::Damage(int dam, Modifier* typeAdvantage, int num){
   damage = dam;
-  *typeAdvantages = *typeAdvantage; // NEEDS TO BE A DEEP COPY
+  typeAdvantages = typeAdvantage; // NEEDS TO BE A DEEP COPY
   numMods = num;
 }
 

@@ -51,6 +51,7 @@ void Character::heal(int healAmount){
 }
 
 void Character::takeDamage(Damage dam){
+  /*
   int tmpDam = dam.getDamage();
   Modifier* arr = dam.getAdvantages();
   int tmpNum = dam.getNumMods();
@@ -67,6 +68,7 @@ void Character::takeDamage(Damage dam){
       }
     }
   }
+  */
   currState.hurt(dam.getDamage());
 }
 Damage Character::attack(){
