@@ -8,9 +8,13 @@ class Modifier{
 public:
   Modifier();
   Modifier(int, int);//effect, duration
-  int getEffect();
+  Modifier(Modifier&);
+  //~Modifier();
+  Modifier(const Modifier&);
+  Modifier& operator=(Modifier);
+  int getEffect() const;
   void setEffect(int);
-  int getDuration();
+  int getDuration() const;
   void setDuration(int);
   bool upkeep(); //called by the upkeep func of other classes, decrements duration by one; returns true when mod should be deleted
   virtual void apply(int*);
@@ -32,7 +36,22 @@ Modifier::Modifier(int eff, int dur){
   duration = dur;
 }
 
-int Modifier::getEffect(){
+Modifier::Modifier(const Modifier& other){
+  effect = other.getEffect();
+  duration = other.getDuration();
+}
+
+//Modifier::~Modifier(){
+//  cout << "Am i doing it right?" << endl;
+//}
+
+Modifier& Modifier::operator=(Modifier other){
+  this->effect = other.getEffect();
+  this->duration = other.getDuration();
+  return *this;
+}
+
+int Modifier::getEffect() const{
   return effect;
 }
 
@@ -40,7 +59,7 @@ void Modifier::setEffect(int eff){
   effect = eff;
 }
 
-int Modifier::getDuration(){
+int Modifier::getDuration() const{
   return duration;
 }
 

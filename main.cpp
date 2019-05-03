@@ -24,60 +24,142 @@ int menu(){
   return opt;
 }
 
-void Fight(Player& pla, Npc& ally, bool& hasally, int rocnt){
-  Damage tmpD(3);
-  TypeAdv tmpTA(0, -1, "claws");
-  Weapon tmpW(20, tmpTA);
-  Monster mon(30 + (5 * rocnt), 30 + (5 * rocnt), tmpD, tmpW, "Warewolf");
-  string tmp = "";
+void Fight(Player& pla, vector<Npc> ally, vector<Monster> mons, int rocnt){
+  int totxp = 0;
+  int tmp;
   while(true){
 
     //player turn
     pla.upkeep();
-    cout << "its your turn press 1 to attack!" << endl;
-    cin >> tmp;
-    Damage tmp = (pla.attack().getDamage());
-    mon.takeDamage(tmp);
-    //allies turn
-    if(hasally && ally.getState().getBaseHealth() <= 0){
-      hasally = false;
-      cout << "Your Ally has been killed! Avenge him!" << endl;
-    }else if(hasally){
-      cout << "Your ally attacks the beast!" << endl;
-      Damage tmp = (ally.attack().getDamage());
-      mon.takeDamage(tmp);
-      ally.upkeep();
+    cout << "Its your turn choose who to attack!" << endl;
+    for(int i=0; i<mons.size();i++){
+      if(mons[i].getState().getBaseHealth() > 0){
+        cout << i+1 << ") " << mons[i].getName() << endl;
+      }
     }
-    //check if monster is dead
-    if(mon.getState().getBaseHealth() <= 0){
-      cout << "You killed it!" << endl;
-      cout << "you get " << 7+3*rocnt << "xp!" << endl;
-      pla.addExperience(10*rocnt);
-      pla.upkeep();
+    cin >> tmp;
+    Damage tmpD = (pla.attack().getDamage());
+    cout << tmpD.getDamage() << endl;
+    cout << mons[tmp-1].getState().getBaseHealth() << " : ";
+    mons[tmp-1].takeDamage(tmpD);
+    cout << mons[tmp-1].getState().getBaseHealth();
+    cout << "Made It" << endl;
+    //check for dead monsters
+    for(int i=0;i<mons.size();i++){
+      if(mons[i].getState().getBaseHealth() <= 0){
+        totxp += 5 +  3 * rocnt;
+        vector<Monster>::iterator it = mons.begin() + i;
+        mons.erase(it);
+      }
+    }
+    if(mons.size()==0){
+      cout << "Yall defeted all the monsters." << endl;
+      pla.addExperience(totxp);
       break;
     }
-    //monster turn
-    cout << "The monster attacks ";
-    int odds = 1 + rand() % 2;
-    if(odds == 1 && hasally){
-      cout << "Your ally!" << endl;
-      Damage tmp = (mon.attack().getDamage());
-      ally.takeDamage(tmp);
-      mon.upkeep();
-    }else{
-      cout << "You!" << endl;
-      Damage tmp = (mon.attack().getDamage());
-      pla.takeDamage(tmp);
-      mon.upkeep();
-    }
+    //allies turn
+    for(int i=0;i<ally.size(); i++){
+      ally[i].upkeep();
+      int odds = rand() % mons.size();
+      cout << ally[i].getName() << " attacks " << mons[odds].getName() << endl;
+      tmpD = (ally[i].attack().getDamage());
+      mons[odds].takeDamage(tmpD);
 
+    }
+    //check if monster is dead
+    for(int i=0;i<mons.size();i++){
+      if(mons[i].getState().getBaseHealth() <= 0){
+        totxp += 5 +  3 * rocnt;
+        vector<Monster>::iterator it = mons.begin() + i;
+        mons.erase(it);
+      }
+    }
+    if(mons.size()==0){
+      cout << "Yall defeted all the monsters." << endl;
+      pla.addExperience(totxp);
+      break;
+    }
+    //check if all monstors are dead - mons is empty
+    //monster turn
+    for(int i=0; i<mons.size(); i++){
+      mons[i].upkeep();
+      int odds = rand() % (ally.size()+1);
+      if(odds < ally.size()){
+        cout << mons[i].getName() << " attacks " << ally[odds].getName() << endl;
+        tmpD = (mons[i].attack().getDamage());
+        ally[odds].takeDamage(tmpD);
+      }else{
+        cout << mons[i].getName() << "attacks you!" << endl;
+        tmpD = (mons[i].attack().getDamage());
+        pla.takeDamage(tmpD);
+      }
+    }
+    for(int i=0;i<ally.size(); i++){
+      if(ally[i].getState().getBaseHealth() <= 0){
+        vector<Npc>::iterator it = ally.begin() + i;
+        ally.erase(it);
+      }
+    }
   }
 
 }
 
 
 int main(){
-  //Start Text
+  //creating cast of allies
+  cout << "Start of Main" << endl;
+
+  Npc stockAllies[4];
+
+  Damage tmpD(3);
+  TypeAdv tmpTA(0, -1, "Claymore");
+  Weapon tmpW(15, tmpTA);
+  Npc all(60, 60, tmpD, tmpW, "Reynold the Warrior");
+  stockAllies[0] = all;
+  /*
+  Damage tmpD1(1);
+  TypeAdv tmpTA1(0, -1, "Daggars");
+  Weapon tmpW1(17, tmpTA1);
+  Npc all1(60, 60, tmpD1, tmpW1, "Bella the Thief");
+  stockAllies[1] = all1;
+  Damage tmpD2(3);
+  TypeAdv tmpTA2(0, -1, "Crossbow");
+  Weapon tmpW2(15, tmpTA2);
+  Npc all2(60, 60, tmpD2, tmpW2, "William the Squire");
+  stockAllies[2] = all2;
+  Damage tmpD3(3);
+  TypeAdv tmpTA3(0, -1, "fireball");
+  Weapon tmpW3(15, tmpTA3);
+  Npc all3(60, 60, tmpD3, tmpW3, "Big Hat Larry");
+  stockAllies[3] = all3;
+  */
+  //creating cast of monsters
+  cout << "monsters" << endl << endl << endl;
+
+  Monster stockMons[4];
+  /*
+  Damage tmpDm(1);
+  TypeAdv tmpTAm(0, -1, "sticks");
+  Weapon tmpWm(7, tmpTAm);
+  Monster mon(20, 20, tmpDm, tmpWm, "Goblin");
+  stockMons[0] = mon;
+  Damage tmpD1m(1);
+  TypeAdv tmpTA1m(0, -1, "claws");
+  Weapon tmpW1m(11, tmpTA1m);
+  Monster mon1(30, 30, tmpD1m, tmpW1m, "Warewolf");
+  stockMons[1] = mon1;
+  Damage tmpD2m(1);
+  TypeAdv tmpTA2m(0, -1, "Club");
+  Weapon tmpW2m(15, tmpTA2m);
+  Monster mon2(40, 40, tmpD2m, tmpW2m, "Cyclops");
+  stockMons[2] = mon2;
+  Damage tmpD3m(1);
+  TypeAdv tmpTA3m(0, -1, "Sword");
+  Weapon tmpW3m(9, tmpTA3m);
+  Monster mon3(35, 60, tmpD3m, tmpW3m, "Skelliton");
+  stockMons[3] = mon3;
+  */
+  //Start Text2
   cout << "You wake up in a dank, dark room." << endl;
   cout << "You have no memories of how you got there." << endl;
   cout << "You hear howls, roars, and the pitter patter of little feet." << endl;
@@ -86,12 +168,14 @@ int main(){
   cout << "What is your name?" << endl;
   string playName;
   cin >> playName;
-  Damage tmpD(0);
-  TypeAdv tmpTA(0, -1, "Rusty");
-  Weapon tmpW(10, tmpTA);
-  Player player(100, 100, tmpD, tmpW, playName);
-  Npc allies(60, 60, tmpD, tmpW, "Carl");
-  bool hasally = false;
+  Damage tmpDp(0);
+  TypeAdv tmpTAp(0, -1, "Rusty");
+  Weapon tmpWp(20, tmpTAp);
+  Player player(100, 100, tmpDp, tmpWp, playName);//player
+  vector<Npc> allies;//allies
+  vector<Monster> enimies;//monsters
+  //Npc allies(60, 60, tmpD, tmpW, "Carl");
+  //bool hasally = false;
   srand(time(nullptr));
   int opt;
   int roomcnt = 0;
@@ -102,8 +186,8 @@ int main(){
 
       opt = menu();
       player.upkeep();
-      if(hasally){
-        allies.upkeep();
+      for(int i=0; i<allies.size(); i++){//ally upkeep
+        allies[i].upkeep();
       }
 
       if(opt == 1){//Look around the room
@@ -113,13 +197,10 @@ int main(){
           cout << "You find a helpfull item. It heals you." << endl;
           player.heal(15);
         }else if(odds >= 3 && odds <= 4){//monster found
+          enimies.push_back(stockMons[0]);
           cout << "A Goblin jumps out from behind something. FIGHT!" << endl;
-          Damage tmpD(1);
-          TypeAdv tmpTA(0, -1, "Goblin");
-          Weapon tmpW(10, tmpTA);
-          Monster tmpMon(40, 40, tmpD, tmpW, playName);
           //FUGGin fight
-          Fight(player, allies, hasally ,roomcnt);
+          Fight(player, allies, enimies ,roomcnt);
 
         }else{//nothing found
           cout << "You find nothing" << endl;
@@ -131,14 +212,20 @@ int main(){
         //nothinng happends
         int odds = 1 + rand() % 3;
 
-        if(odds == 1 && !hasally){//ally apears
-          hasally = true;
-          allies.getState().setBaseHealth(60);
+        if(odds == 1){//ally apears
+          //hasally = true;
+          //allies.getState().setBaseHealth(60);
           cout << "An ally has joined your party!" << endl;
-
+          int odds = rand() % 4;
+          allies.push_back(stockAllies[odds]);
         }else if( odds == 2){//monster appears
           cout << "A monster was in the next room FIGHT!" << endl << endl;
-          Fight(player, allies, hasally, roomcnt);
+          int odds = 1 + rand() % 3;
+          for(int i=0; i<odds;i++){
+            int odds2 = rand() % 4;
+            enimies.push_back(stockMons[odds2]);
+          }
+          Fight(player, allies, enimies, roomcnt);
         }else{
           cout << "The room was empty." << endl << endl;
         }
@@ -147,9 +234,8 @@ int main(){
         //call print functions of player and all allies
         player.print();
         cout << endl;
-        if(hasally){
-          allies.print();
-          cout << endl;
+        for(int i=0; i<allies.size(); i++){
+          allies[i].print();
         }
       }else{
         cout << "Wrong input, try again" << endl;

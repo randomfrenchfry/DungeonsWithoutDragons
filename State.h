@@ -7,17 +7,20 @@ class State{
 public:
   State();
   State(int, int, Damage); // base health, maxhealth, Damage
+  State operator=(State);
   void setBaseHealth(int);
-  int getBaseHealth();
+  int getBaseHealth() const;
   void setMaxHealth(int);
-  int getMaxHealth();
+  int getMaxHealth() const;
   int* getHealthMod();
+  int getHealthMod2() const;
   void heal(int);
   void hurt(int);
   void weaken(int);
   void strengthen(int);
   void setDamage(Damage);
-  Damage getDamage();
+  Damage getDamage() const;
+  int getDamageMod() const;
   void upkeep(); // apply healthMod to base Health, dont exceed
   void print();
 
@@ -46,15 +49,32 @@ State::State(int bH, int mH, Damage dam){
   damageMod = 0;
 }
 
+State State::operator=(State other){
+  this->baseHealth = other.getBaseHealth();
+  this->maxHealth = other.getMaxHealth();
+  this->healthMod = other.getHealthMod2();
+  this->damage = other.getDamage();
+  this->damageMod = other.getDamageMod();
+  return *this;
+}
+
 int* State::getHealthMod(){
   return &healthMod;
+}
+
+int State::getHealthMod2() const{
+  return healthMod;
+}
+
+int State::getDamageMod() const{
+  return damageMod;
 }
 
 void State::setBaseHealth(int bH){
   baseHealth = bH;
 }
 
-int State::getBaseHealth(){
+int State::getBaseHealth()const{
   return baseHealth;
 }
 
@@ -62,7 +82,7 @@ void State::setMaxHealth(int mH){
   maxHealth = mH;
 }
 
-int State::getMaxHealth(){
+int State::getMaxHealth()const{
   return maxHealth;
 }
 
@@ -89,7 +109,7 @@ void State::setDamage(Damage dam){
   damage = dam;
 }
 
-Damage State::getDamage(){
+Damage State::getDamage()const{
   return damage;
 }
 
