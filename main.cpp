@@ -80,11 +80,13 @@ int main(){
   cout << "You wake up in a dank, dark room." << endl;
   cout << "You have no memories of how you got there." << endl;
   cout << "You hear howls, roars, and the pitter patter of little feet." << endl;
+  cout << "You hear a voice." << endl;
   cout << "You are in a dungeon." << endl;
   cout << "The only way to escape is to kill the monsters with the key." << endl;
-  cout << "What is your name?" << endl;
+  cout << "Chosen One, What is your name?" << endl;
   string playName;
   cin >> playName;
+  cout << "Find the key" << playName << ", and you will be victorious." << endl;
   Damage tmpD(0);
   TypeAdv tmpTA(0, -1, "Rusty");
   Weapon tmpW(10, tmpTA);
